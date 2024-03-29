@@ -12,6 +12,7 @@ public class JogoDaForca {
     private String dica;
     private int acertos;
     private int erros;
+    private int tentativas;
 
     /**
      * Construtor da classe JogoDaForca.
@@ -24,6 +25,7 @@ public class JogoDaForca {
         this.dicas = new ArrayList<>();
         this.letrasDigitadas = new ArrayList<>();
         this.carregarPalavras();
+        this.iniciar();
     }
 
     /**
@@ -59,6 +61,10 @@ public class JogoDaForca {
 
     public int getAcertos() {
         return this.acertos;
+    }
+    
+    public int getTentativas() {
+        return this.tentativas;
     }
 
     public int getNumeroPenalidades() {
@@ -122,6 +128,7 @@ public class JogoDaForca {
             throw new Exception("Letra já digitada.");
         }
         this.letrasDigitadas.add(letra);
+        this.tentativas++;
 
         ArrayList<Integer> ocorrencias = new ArrayList<>();
         for (int i = 0; i < this.palavraSorteada.length(); i++) {
