@@ -44,6 +44,27 @@ public class JogoDaForca {
         return this.palavraSorteada.length();
     }
 
+    public int getAcertos() {
+        return this.acertos;
+    }
+
+    public int getNumeroPenalidades() {
+        return this.erros;
+    }
+
+    public String getResultado(){
+        String resultado = "";
+        if(this.acertos == 6){
+            resultado = "Você venceu!";
+        } else if(this.erros == 6){
+            resultado = "Você perdeu!";
+        } else {
+            resultado = "Jogo em andamento.";
+        }
+
+        return resultado;
+    }
+
     public boolean terminou(){
         return this.acertos == 6 || this.erros == 6;
     }
@@ -77,5 +98,17 @@ public class JogoDaForca {
             this.erros++;
         }
         return ocorrencias;
+    }
+
+    public String getPalavraAdvinhada() {
+        StringBuilder palavraAdvinhada = new StringBuilder();
+        for (int i = 0; i < this.palavraSorteada.length(); i++) {
+            if (this.letrasDigitadas.contains(String.valueOf(this.palavraSorteada.charAt(i)))) {
+                palavraAdvinhada.append(this.palavraSorteada.charAt(i));
+            } else {
+                palavraAdvinhada.append("*");
+            }
+        }
+        return palavraAdvinhada.toString();
     }
 }
