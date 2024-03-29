@@ -14,13 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+
 public class TelaJogo {
 
+	private JPanel panel;
 	private JFrame frame;
 	private JLabel palavraLabel;
 	private JogoDaForca jogo;
 	private JTextField letraInput;
 	private JButton checarBtn;
+	private JButton btnIniciar;
 	private JLabel checkLabel;
 	private JLabel lblTentativas;
 	private JLabel imgLabel;
@@ -56,69 +59,76 @@ public class TelaJogo {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Jogo da Forca");
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(45, 53, 698, 486);
+		panel = new JPanel();
+		panel.setBounds(12, 29, 776, 559);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+
+		btnIniciar = new JButton("Iniciar");
+		btnIniciar.setBounds(296, 250, 165, 63);
+		btnIniciar.setVisible(true);
+		panel.add(btnIniciar);	
 		
 		
 		palavraLabel = new JLabel();
 		palavraLabel.setFont(new Font("MesloLGS NF", Font.BOLD, 22));
-		palavraLabel.setBounds(51, 142, 450, 83);
+		palavraLabel.setBounds(79, 170, 450, 83);
 		palavraLabel.setVisible(false);
 		panel.add(palavraLabel);
 		palavraLabel.setText("Palavra: " + jogo.getPalavraAdvinhada());
-		
+
 		dicaLabel = new JLabel("");
 		dicaLabel.setFont(new Font("MesloLGS NF", Font.BOLD, 15));
-		dicaLabel.setBounds(51, 107, 424, 35);
+		dicaLabel.setBounds(79, 135, 424, 35);
 		panel.add(dicaLabel);
 		dicaLabel.setText("Dica: " + jogo.getDica());
 		dicaLabel.setVisible(false);
 		
 		letraInput = new JTextField();
 		letraInput.setFont(new Font("MesloLGS NF", Font.PLAIN, 50));
-		letraInput.setBounds(71, 244, 61, 57);
+		letraInput.setBounds(99, 272, 61, 57);
 		panel.add(letraInput);
 		letraInput.setColumns(10);
 		letraInput.setVisible(false);
 		
 		lblTentativas = new JLabel("Tentativas: " + String.valueOf(jogo.getTentativas()));
-		lblTentativas.setBounds(532, 246, 124, 15);
+		lblTentativas.setBounds(521, 265, 112, 15);
 		panel.add(lblTentativas);
 		lblTentativas.setVisible(false);
 		
 		imgLabel = new JLabel("");
-		imgLabel.setBounds(487, 61, 174, 145);
+		imgLabel.setBounds(494, 36, 174, 145);
 		setImage(imgLabel);
 		panel.add(imgLabel);
 		imgLabel.setVisible(false);
 				
 		checkLabel = new JLabel("");
-		checkLabel.setBounds(268, 353, 382, 95);
+		checkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		checkLabel.setBounds(340, 363, 382, 95);
 		panel.add(checkLabel);
 		checkLabel.setVisible(false);
 		
 		gameOverLabel = new JLabel("");
 		gameOverLabel.setFont(new Font("MesloLGS NF", Font.BOLD, 27));
 		gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameOverLabel.setBounds(97, 223, 509, 225);
+		gameOverLabel.setBounds(250, 272, 253, 102);
 		panel.add(gameOverLabel);
 		gameOverLabel.setVisible(false);
 		
-		
-		JButton btnIniciar = new JButton("Iniciar");
 		checarBtn = new JButton("Checar");
+		checarBtn.setBounds(167, 288, 117, 25);
+		panel.add(checarBtn);
+		checarBtn.setVisible(false);
 		
 		ArrayList<Component> componentes = new ArrayList<>(
 				List.of(palavraLabel, dicaLabel, letraInput, checarBtn, lblTentativas, imgLabel)
 				);
-
+		imgLabel.setBounds(487, 36, 174, 145);
 		
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					btnIniciar.setBounds(268, 222, 165, 63);
+					btnIniciar.setBounds(296, 250, 165, 63);
 					gameOverLabel.setVisible(false);
 					imgLabel.setBounds(487, 36, 174, 145);
 					setImage(imgLabel);
@@ -130,10 +140,6 @@ public class TelaJogo {
 				}
 			}
 		});
-		btnIniciar.setBounds(268, 222, 165, 63);
-		btnIniciar.setVisible(true);
-		imgLabel.setBounds(487, 36, 174, 145);
-		panel.add(btnIniciar);	
 		
 		checarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -152,7 +158,7 @@ public class TelaJogo {
 						gameOverLabel.setVisible(true);
 						imgLabel.setBounds(268, 81, 174, 145);
 						imgLabel.setVisible(true);
-						btnIniciar.setBounds(268, 400, 165, 63);
+						btnIniciar.setBounds(296, 400, 165, 63);
 						btnIniciar.setVisible(true);
 						btnIniciar.setText("Novo Jogo");
 						reset();
@@ -165,9 +171,6 @@ public class TelaJogo {
 				}
 			}
 		});
-		checarBtn.setBounds(139, 260, 117, 25);
-		panel.add(checarBtn);
-		checarBtn.setVisible(false);
 	}
 	
 	private void setImage(JLabel label) {
