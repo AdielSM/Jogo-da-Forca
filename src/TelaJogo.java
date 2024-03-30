@@ -85,6 +85,7 @@ public class TelaJogo {
 		dicaLabel.setVisible(false);
 		
 		letraInput = new JTextField();
+		letraInput.setHorizontalAlignment(SwingConstants.CENTER);
 		letraInput.setFont(new Font("MesloLGS NF", Font.PLAIN, 50));
 		letraInput.setBounds(99, 272, 61, 57);
 		panel.add(letraInput);
@@ -92,7 +93,8 @@ public class TelaJogo {
 		letraInput.setVisible(false);
 		
 		lblTentativas = new JLabel("Tentativas: " + String.valueOf(jogo.getTentativas()));
-		lblTentativas.setBounds(521, 265, 112, 15);
+		lblTentativas.setFont(new Font("MesloLGS NF", Font.BOLD, 20));
+		lblTentativas.setBounds(485, 272, 193, 15);
 		panel.add(lblTentativas);
 		lblTentativas.setVisible(false);
 		
@@ -103,15 +105,16 @@ public class TelaJogo {
 		imgLabel.setVisible(false);
 				
 		checkLabel = new JLabel("");
-		checkLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		checkLabel.setBounds(340, 363, 382, 95);
+		checkLabel.setFont(new Font("MesloLGS NF", Font.PLAIN, 15));
+		checkLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		checkLabel.setBounds(99, 352, 362, 63);
 		panel.add(checkLabel);
 		checkLabel.setVisible(false);
 		
 		gameOverLabel = new JLabel("");
 		gameOverLabel.setFont(new Font("MesloLGS NF", Font.BOLD, 27));
 		gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameOverLabel.setBounds(250, 272, 253, 102);
+		gameOverLabel.setBounds(251, 265, 253, 102);
 		panel.add(gameOverLabel);
 		gameOverLabel.setVisible(false);
 		
@@ -123,16 +126,18 @@ public class TelaJogo {
 		ArrayList<Component> componentes = new ArrayList<>(
 				List.of(palavraLabel, dicaLabel, letraInput, checarBtn, lblTentativas, imgLabel)
 				);
+		ArrayList<Component> componentesJogoNovo = new ArrayList<>(
+				List.of(btnIniciar, imgLabel, gameOverLabel)
+				);
 		imgLabel.setBounds(487, 36, 174, 145);
 		
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					btnIniciar.setBounds(296, 250, 165, 63);
-					gameOverLabel.setVisible(false);
 					imgLabel.setBounds(487, 36, 174, 145);
 					setImage(imgLabel);
-					btnIniciar.setVisible(false);
+					ComponentVisibilityHelper.setVisibility(componentesJogoNovo, false);
 					ComponentVisibilityHelper.setVisibility(componentes, true);
 
 				} catch (Exception e1) {
@@ -155,19 +160,16 @@ public class TelaJogo {
 					if (jogo.terminou()) {
 						ComponentVisibilityHelper.setVisibility(componentes, false);
 						gameOverLabel.setText(jogo.getResultado());
-						gameOverLabel.setVisible(true);
-						imgLabel.setBounds(268, 81, 174, 145);
-						imgLabel.setVisible(true);
+						imgLabel.setBounds(285, 81, 174, 145);
 						btnIniciar.setBounds(296, 400, 165, 63);
-						btnIniciar.setVisible(true);
 						btnIniciar.setText("Novo Jogo");
+						ComponentVisibilityHelper.setVisibility(componentesJogoNovo, true);
 						reset();
 					}
+					letraInput.setText("");
 				} catch (Exception e1) {
 					checkLabel.setText(e1.getMessage());
 					checkLabel.setVisible(true);
-				} finally {
-					letraInput.setText("");
 				}
 			}
 		});
@@ -190,6 +192,7 @@ public class TelaJogo {
 	            component.setVisible(visibility);
 	        }
 	    }
+	    
 
 	}	
 }
