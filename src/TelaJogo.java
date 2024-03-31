@@ -1,29 +1,17 @@
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 
 public class TelaJogo {
 
-	private JPanel panel;
-	private JFrame frame;
-	private JLabel palavraLabel;
+    private JLabel palavraLabel;
 	private JogoDaForca jogo;
 	private JTextField letraInput;
-	private JButton checarBtn;
-	private JButton btnIniciar;
+    private JButton btnIniciar;
 	private JLabel checkLabel;
 	private JLabel lblTentativas;
 	private JLabel imgLabel;
@@ -32,8 +20,7 @@ public class TelaJogo {
 
 	/**
 	 * Create the application.
-	 * @throws Exception 
-	 */
+     */
 	public TelaJogo() throws Exception {
 		this.jogo = new JogoDaForca();
 		initialize();
@@ -41,25 +28,24 @@ public class TelaJogo {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws Exception 
-	 */
+     */
 	
 	private void reset() throws Exception {
 		this.jogo = new JogoDaForca();
 		this.palavraLabel.setText("Palavra: " + jogo.getPalavraAdvinhada());
-		this.lblTentativas.setText("Tentativas: " + String.valueOf(jogo.getTentativas()));	
+		this.lblTentativas.setText("Tentativas: " + jogo.getTentativas());
 		this.dicaLabel.setText("Dica: " + jogo.getDica());
 	}
 	
 	private void initialize() {
-		frame = new JFrame();
+        JFrame frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(200, 200, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Jogo da Forca");
-		
-		panel = new JPanel();
+
+        JPanel panel = new JPanel();
 		panel.setBounds(12, 29, 776, 559);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -92,7 +78,7 @@ public class TelaJogo {
 		letraInput.setColumns(10);
 		letraInput.setVisible(false);
 		
-		lblTentativas = new JLabel("Tentativas: " + String.valueOf(jogo.getTentativas()));
+		lblTentativas = new JLabel("Tentativas: " + jogo.getTentativas());
 		lblTentativas.setFont(new Font("MesloLGS NF", Font.BOLD, 20));
 		lblTentativas.setBounds(485, 272, 193, 15);
 		panel.add(lblTentativas);
@@ -117,8 +103,8 @@ public class TelaJogo {
 		gameOverLabel.setBounds(251, 265, 253, 102);
 		panel.add(gameOverLabel);
 		gameOverLabel.setVisible(false);
-		
-		checarBtn = new JButton("Checar");
+
+        JButton checarBtn = new JButton("Checar");
 		checarBtn.setBounds(167, 288, 117, 25);
 		panel.add(checarBtn);
 		checarBtn.setVisible(false);
@@ -151,7 +137,7 @@ public class TelaJogo {
 				try {
 					checkLabel.setText("");
 					var checkResult = jogo.getOcorrencias(letraInput.getText());
-					if (checkResult.size() == 0) {
+					if (checkResult.isEmpty()) {
 						setImage(imgLabel);
 					} else {
 						palavraLabel.setText("Palavra: " + jogo.getPalavraAdvinhada());
@@ -186,13 +172,11 @@ public class TelaJogo {
 		label.setIcon(icon);
 	}
 	
-	private class ComponentVisibilityHelper {
+	private static class ComponentVisibilityHelper {
 	    public static void setVisibility(ArrayList<Component> components, boolean visibility) {
 	        for (Component component : components) {
 	            component.setVisible(visibility);
 	        }
 	    }
-	    
-
 	}	
 }
