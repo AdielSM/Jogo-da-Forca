@@ -17,6 +17,8 @@ public class TelaJogo {
 	private JLabel imgLabel;
 	private JLabel gameOverLabel;
 	private JLabel dicaLabel;
+	private JLabel lblAcertos;
+	private JLabel lblErros;
 
 	/**
 	 * Create the application.
@@ -34,6 +36,8 @@ public class TelaJogo {
 		this.jogo = new JogoDaForca();
 		this.palavraLabel.setText("Palavra: " + jogo.getPalavraAdvinhada());
 		this.lblTentativas.setText("Tentativas: " + jogo.getTentativas());
+		this.lblAcertos.setText("Acertos: " + jogo.getAcertos());
+		this.lblErros.setText("Erros: " + jogo.getNumeroPenalidades());
 		this.dicaLabel.setText("Dica: " + jogo.getDica());
 	}
 	
@@ -84,6 +88,18 @@ public class TelaJogo {
 		panel.add(lblTentativas);
 		lblTentativas.setVisible(false);
 		
+		lblAcertos = new JLabel("Acertos: " + jogo.getAcertos());
+		lblAcertos.setBounds(495, 301, 140, 15);
+		lblAcertos.setFont(new Font("MesloLGS NF", Font.PLAIN, 12));
+		panel.add(lblAcertos);
+		lblAcertos.setVisible(false);
+		
+		lblErros = new JLabel("Erros: " + jogo.getNumeroPenalidades());
+		lblErros.setBounds(495, 324, 140, 15);
+		lblErros.setFont(new Font("MesloLGS NF", Font.PLAIN, 12));
+		panel.add(lblErros);
+		lblErros.setVisible(false);
+		
 		imgLabel = new JLabel("");
 		imgLabel.setBounds(494, 36, 174, 145);
 		setImage(imgLabel);
@@ -109,13 +125,19 @@ public class TelaJogo {
 		panel.add(checarBtn);
 		checarBtn.setVisible(false);
 		
+		
+		
 		ArrayList<Component> componentes = new ArrayList<>(
-				List.of(palavraLabel, dicaLabel, letraInput, checarBtn, lblTentativas, imgLabel)
+				List.of(palavraLabel, dicaLabel, 
+						letraInput, checarBtn, 
+						lblTentativas, imgLabel,
+						lblErros, lblAcertos)
 				);
 		ArrayList<Component> componentesJogoNovo = new ArrayList<>(
 				List.of(btnIniciar, imgLabel, gameOverLabel)
 				);
 		imgLabel.setBounds(487, 36, 174, 145);
+		
 		
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,7 +164,9 @@ public class TelaJogo {
 					} else {
 						palavraLabel.setText("Palavra: " + jogo.getPalavraAdvinhada());
 					}
-					lblTentativas.setText("Tentativas: " + String.valueOf(jogo.getTentativas()));
+					lblTentativas.setText("Tentativas: " + jogo.getTentativas());
+					lblAcertos.setText("Acertos: " + jogo.getAcertos());
+					lblErros.setText("Erros: " + jogo.getNumeroPenalidades());
 					if (jogo.terminou()) {
 						ComponentVisibilityHelper.setVisibility(componentes, false);
 						gameOverLabel.setText(jogo.getResultado());
