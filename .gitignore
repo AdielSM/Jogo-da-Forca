@@ -5,3 +5,5 @@ out/
 .idea/
 JogoForca.iml
 /bin/
+.classpath
+.project
