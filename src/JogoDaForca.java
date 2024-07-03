@@ -1,8 +1,8 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class JogoDaForca {
     private final ArrayList<String> palavras;
@@ -38,14 +38,19 @@ public class JogoDaForca {
      */
     private void carregarPalavras() throws Exception {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/palavras.txt"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] dados = line.split(";");
-                this.palavras.add(dados[0]);
-                this.dicas.add(dados[1]);
-            }
-            reader.close();
+    		InputStream stream = this.getClass().getResourceAsStream("palavras.txt");
+    		if (stream == null)
+    			throw new Exception("Arquivo de palavras inexistente");
+    		Scanner arquivo = new Scanner(stream);
+
+    		String linha;
+    		while (arquivo.hasNext()) {
+    			linha = arquivo.nextLine().toUpperCase();
+    			 String[] dados = linha.split(";");
+                 this.palavras.add(dados[0]);
+                 this.dicas.add(dados[1]);
+    		}
+    		arquivo.close();
         } catch (IOException e) {
             throw new Exception("Arquivo de texto não encontrado.");
         }
